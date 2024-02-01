@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Input Your Username and Password</h1>
+    <p>- username less than 6 characters</p>
+    <p>- username does not contain special character except _</p>
+    <p>- password is atleast 8 characters</p>
+    <p>- password contains upper and lowercase letters</p>
+    <p>- password contains atleast 1 digit</p>
+    <p>- password contains atleast 1 special character</p>
+
+    <table>
+        <th>User Registration</th>
+        <tr>
+            <td>Username</td>
+            <td><input type="text" id="username" name="username"></td>
+            <td>
+                <button onclick="check_username()">Check Username</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" id="password" name="password"></td>
+            <td>
+                <button onclick="check_password()">Check Password</button>
+            </td>
+        </tr>
+    </table>
+
+    <h3 id="user_log"></h3>
+    <h3 id="pass_log"></h3>
+
+    <script>
+        let user_log = document.getElementById('user_log');
+        let pass_log = document.getElementById('pass_log');
+
+        let user_error = [];
+        let pass_error = [];
+
+        const check_username = () => {
+            const username = document.getElementById('username').value;
+
+            user_log.innerHTML = '';
+            user_error = [];
+
+            if(username.match(/[^a-zA-Z0-9_]/g)){
+                user_log.style.color = 'red';
+                user_error.push('-username contains special characters');
+            } 
+
+            if(username.length > 6) {
+                user_log.style.color = 'red';
+                user_error.push('-username is too long');
+            } 
+
+            if(user_error.length == 0) {
+                user_log.style.color = 'green';
+                user_log.innerHTML = '-username is valid';
+            }
+
+            for (let i = 0; i < user_error.length; i++) {
+                user_log.innerHTML += '<br>' + user_error[i];
+            }
+        }
+
+        const check_password = () => {
+           const password = document.getElementById('password').value;
+
+           pass_log.innerHTML = '';
+           pass_error = [];
+
+           if (password.length < 8) {
+               pass_log.style.color = 'red';
+               pass_error.push('-password is too short');
+           } 
+
+           if (!password.match(/[A-Z]/g)) {
+               pass_log.style.color = 'red';
+               pass_error.push('-password does not contain uppercase letter');
+           } 
+
+           if (!password.match(/[a-z]/g)) {
+               pass_log.style.color = 'red';
+               pass_error.push('-password does not contain lowercase letter')
+           } 
+
+           if (!password.match(/[0-9]/g)) {
+               pass_log.style.color = 'red';
+               pass_error.push('-password does not contain digit');
+           } 
+
+           if (!password.match(/[^a-zA-Z0-9]/g)) {
+               pass_log.style.color = 'red';
+               pass_error.push('-password does not contain special character');
+           } 
+
+           if (password.length >= 8 && password.match(/[A-Z]/g) && password.match(/[a-z]/g) && password.match(/[0-9]/g) && password.match(/[^a-zA-Z0-9]/g)){
+               pass_log.style.color = 'green';
+               pass_log.innerHTML = '-password is valid';
+           }
+
+           for (let i = 0; i < pass_error.length; i++) {
+               pass_log.innerHTML += '<br>' + pass_error[i];
+           }
+        }
+    </script>
+</body>
+</html>
