@@ -56,9 +56,9 @@
                 user_error.push('-username contains special characters');
             } 
 
-            if(username.length > 6) {
+            if(username.length < 6) {
                 user_log.style.color = 'red';
-                user_error.push('-username is too long');
+                user_error.push('-username is too short');
             } 
 
             if(user_error.length == 0) {
